@@ -1,18 +1,36 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getAnalytics, isSupported } from "firebase/analytics";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
-  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyAiXQ3NI9d6KtMVes_xxP1QpMJtP49iXjM",
+  authDomain: "game101-485a9.firebaseapp.com",
+  projectId: "game101-485a9",
+  storageBucket: "game101-485a9.firebasestorage.app",
+  messagingSenderId: "563808860170",
+  appId: "1:563808860170:web:426357b770f68035f687f3",
+  measurementId: "G-3C14H6Z9N9"
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
 
-auth.useDeviceLanguage();
+// React Native için Auth state’i kalıcı yap
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage)
+});
+
+const db = getFirestore(app);
+
+// Analytics (opsiyonel)
+(async () => {
+  if (await isSupported()) {
+    const analytics = getAnalytics(app);
+    console.log("Analytics initialized.");
+  } else {
+    console.warn("Analytics not supported in this environment.");
+  }
+})();
+
+export { app, auth, db };

@@ -19,7 +19,12 @@
     "jsx": "react-native",
     "allowJs": true,
     "noEmit": true,
-    "types": ["node", "react", "react-native"]
+    "types": [
+      "node",
+      "react",
+      "react-native",
+      "@react-native-async-storage/async-storage"
+    ]
   },
   "extends": "expo/tsconfig.base",
   "include": ["src/**/*"],
