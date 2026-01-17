@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Game101",
+    "slug": "game101",
+    "version": "1.0.0",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTabletMode": true
+    },
+    "android": {
+      "package": "com.bolatahmett.game101"
+    }
+  }
+}
